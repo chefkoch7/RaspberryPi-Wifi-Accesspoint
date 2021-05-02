@@ -86,7 +86,7 @@ rsn_pairwise=CCMP
 ### test config with:
 sudo /usr/sbin/hostapd /etc/hostapd/hostapd.conf
 
-### test schliessen stop hostapd
+### stop hostapd test
 ctrl+c
 
 ### tell hostapd where to find its config file
