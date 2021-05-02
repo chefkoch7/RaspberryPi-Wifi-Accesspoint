@@ -129,13 +129,15 @@ cat /proc/sys/net/ipv4/ip_forward
 ### However, this change won’t stick between reboots. We need to make it permanent through sysctl:
 vim /etc/sysctl.conf
 ..uncomment the line containing net.ipv4.ip_forward=1:
+### change to pi user 
+exit
 
 ### iptables setup
 ### The forward isn’t quite enough to give our wifi guests Internet access (through our eth0 interface). We need iptables to help us do this.
-iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  
-iptables -A FORWARD -i eth0 -o wlan0 \                                             
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE  
+sudo iptables -A FORWARD -i eth0 -o wlan0 \                                             
 > -m state --state RELATED,ESTABLISHED -j ACCEPT
-iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
+sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
 
 ### Check out our rules:
 sudo iptables -S
@@ -146,7 +148,7 @@ sudo iptables -S
 -A FORWARD -i wlan0 -o eth0 -j ACCEPT
 
 ### Output our rules to a file:
-iptables-save > /etc/iptables.ipv4.nat
+sudo iptables-save > /etc/iptables.ipv4.nat
 
 ### Apply these rules every time we boot the Pi by editing the /etc/rc.local file:
 sudo vim /etc/rc.local
