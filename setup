@@ -17,6 +17,9 @@ denyinterfaces wlan0
 sudo vim /etc/network/interfaces
 
 # add this section
+
+**********************************
+
 allow-hotplug eth0
 iface eth0 inet dhcp
 
@@ -26,7 +29,10 @@ iface wlan0 inet static
     netmask 255.255.255.0
     network 172.24.1.0
     broadcast 172.24.1.255
-    
+        
+**********************************
+
+
 ### restart dhcpcd with
 sudo service dhcpcd restart
 
@@ -38,6 +44,9 @@ sudo ifup wlan0
 vim /etc/hostapd/hostapd.conf
 
 ### example config
+
+**********************************
+
 # This is the name of the WiFi interface we configured above
 interface=wlan0
 
@@ -82,6 +91,10 @@ wpa_passphrase=password_you_chose
 
 # Use AES, instead of TKIP
 rsn_pairwise=CCMP
+
+**********************************
+
+
 
 ### test config with:
 sudo /usr/sbin/hostapd /etc/hostapd/hostapd.conf
